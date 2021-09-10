@@ -1,0 +1,76 @@
+####### Location hk ,cn ##########
+LOCATION=cn
+####### SITE sh,tw,hk,bj##########
+SITE=sh
+##################################
+SERVER="web01"
+##################################
+SER_TYPE="prod"
+### LOG path   ###################
+LOGPATH="/opt/logs"
+##################################
+### Log archive file path ########
+ARCPATH="$LOGPATH/archives"
+##################################
+SER_TYPE="prod"
+###### MAIL list  #######################
+MAILTO="instant.msg@travelzen.com"
+### jboss service home ###########
+JBOSSHOME="/opt/app/jboss-4.2.3.GA/server"
+##################################
+BACKUP_DIR="/var/APP"
+LIMIT_BACKUP=3
+### Jboss service ################
+SERVERLIST="ota-biz ota-web admin galileo-connector tz-task payment affiliate event-inventory hotelcrs-ws hotelcrs-web-revamp ota-gds-connector"
+OTABIZPATH="ota-biz"
+OTAWEBPATH="ota-web"
+ADMINPATH="admin"
+GALILEOPATH="galileo-connector"
+TASKPATH="tz-tsak"
+PAYMENTPATH="payment"
+AFFILIATEPATH="affiliate"
+EVENTPATH="event-inventory"
+HOTELWSPATH="hotelcrs-ws"
+HOTELREVAMP="hotelcrs-web-revamp"
+#############################
+## HK monitor  ##############
+MONITOR="192.168.3.34"
+################################
+##########################################
+### start DDos script setting ############
+##### SITE = SHA TW or HK    #############
+DDos_LOC_SITE=$SITE
+######## AP Name = ta1 or ta2 ..... ######
+DDos_AP_NAME=$SERVER
+##########################################
+#### Analyze log ,MASTER =0 , SLAVE =1
+DDos_MASTER_ONLY="1"
+##### Enable or Disable iptables #########
+##### Enable =0  disable =1 ##############
+DDos_EN_IPTABLES="1"
+##########################################
+DDos_LOGSRC="/opt/log/ota-web"
+######
+DDos_LOGLIST="user-search-stat-1.log hotel-search-stat-1.log hotel-search-stat-affiliate.log user-search-stat-affiliate.log"
+####
+DDos_LOGTMPDIR="/opt/mnt_backup"
+#######
+DDos_LOGTMP="$DDos_LOGTMPDIR/DDos_Analyze/TMP"
+########
+DDos_CONF_DIR="$DDos_LOGTMPDIR/DDos_Analyze"
+########
+DDos_EXCLUDED_LIST="$DDos_LOGTMPDIR/DDos_Analyze/ExcludeList"
+#######
+DDos_COUNT_DIR="$DDos_LOGTMPDIR/DDos_Analyze/COUNT"
+#################################################
+DDos_ALOCK="$DDos_LOGTMPDIR/DDos_Analyze/LOCK_FILE"
+DDos_DLOCK="$DDos_LOGTMPDIR/DDos_Analyze/DENY.lock"
+#### Enable iptables use only #######
+DDos_LOGFILE=`date +%Y%m%d%H%M`
+DDos_BANIPLOGDIR=$DDos_LOGTMPDIR/DDos_Analyze/DDos_Banned
+DDos_BANIPLOG=$DDos_BANIPLOGDIR/$LOGFILE.log
+DDos_BANIPMAIL=$DDos_BANIPLOGDIR/BannedIP.mail
+########################################################
+DDos_WAIT_TIME="18"
+########################################################
+########### END DDos setting  ##########################
