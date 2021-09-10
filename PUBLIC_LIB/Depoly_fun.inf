@@ -1,0 +1,167 @@
+#!/bin/bash
+##################################
+#         Public Deploy funtcion
+#      careted by 20110304
+#      script by  vinent.yu
+#      cahnged 20110316 by vincent,yu
+#
+####################################
+
+CLEAR_CONF(){
+  if [ -e _ajdump ]; then
+          rm -rf _ajdump
+  fi
+  if [ -e tmp ]; then
+          rm -rf tmp
+  fi
+  if [ -e work ]; then
+          rm -rf work
+  fi
+  
+  if [ -e config ]; then
+          rm -rf config
+  fi
+
+}
+
+F_DEPOLY(){
+    J_SITE=$1
+    J_SERVICE=$2
+    J_TYPE=$3
+#################  event-inventory ###############
+if [ $J_SERVICE = "event-inventory" ]; then
+   cd $JBOSSHOME/$J_SERVICE
+   if [ -e deploy/event-inventory*.war ]; then
+        rm -rf deploy/event-inventory*.war
+   fi
+   if [ -e deploy/snmp-adaptor.sar ]; then
+        rm -rf deploy/snmp-adaptor.sar
+   fi
+   CLEAR_CONF
+   rm -f deploy/ota-*-ds.xml
+   cp -r ../all/deploy/snmp-adaptor.sar ./deploy
+   unzip -oq event-inventory*binary.zip
+   if  [ $J_TYPE = "pord" ]; then
+      unzip -oq event-inventory*config.zip
+   elif [ $J_TYPE = "beta" ]; then
+      unzip -oq event-inventory-*-shbeta-config.zip  
+   elif [ $J_TYPE = "alpha" ]; then
+      unzip -oq event-inventory-*-alpha-config.zip 
+   fi
+########   hotelcrs-ws-project  ######################
+elif [  $J_SERVICE = "hotelcrs-ws" ]; then
+    cd $JBOSSHOME/$J_SERVICE
+    if [ -e deploy/hotelcrs-ws-project*.war ]; then
+      rm -rf deploy/hotelcrs-ws-project*.war
+    fi
+    if [ -e deploy/snmp-adaptor.sar ]; then
+      rm -rf deploy/snmp-adaptor.sar
+    fi
+    rm -f deploy/hotelcrs-*-ds.xml
+    rm -f deploy/ota-*-ds.xml
+    CLEAR_CONF
+    cp -r ../all/deploy/snmp-adaptor.sar ./deploy
+    unzip -o hotelcrs-ws-project*binary.zip
+    if  [ $J_TYPE = "pord" ]; then
+      unzip -oq hotelcrs-ws-project*config.zip  
+    elif [ $J_TYPE = "beta" ]; then
+      unzip -oq hotelcrs-ws-project*shbeta-config.zip 
+    elif [ $J_TYPE = "alpha" ]; then
+      unzip -oq hotelcrs-ws-project*alpha-config.zip 
+    fi
+##############  creme-admin  #######################
+elif [  $J_SERVICE = "hotelcrs-web-revamp" ]; then
+    cd $JBOSSHOME/$J_SERVICE
+    if [ -e deploy/creme-admin*.war ]; then
+            rm -rf deploy/creme-admin*.war
+    fi
+    if [ -e deploy/snmp-adaptor.sar ]; then
+            rm -rf deploy/snmp-adaptor.sar
+    fi
+    CLEAR_CONF
+    rm -f deploy/creme-*-ds.xml
+    rm -f deploy/ota-*-ds.xml
+    rm -f deploy/report-*-ds.xml 
+    cp -r ../all/deploy/snmp-adaptor.sar ./deploy
+    unzip -oq creme-admin*binary.zip
+    if  [ $J_TYPE = "pord" ]; then
+      unzip -oq creme-admin-*-prod-config.zip   
+    elif [ $J_TYPE = "alpha" ]; then
+      unzip -oq creme-admin-*-dev-config.zip 
+    fi
+##### TA ota-biz  ##################
+elif [  $J_SERVICE = "ota-biz" ]; then
+    cd $JBOSSHOME/$J_SERVICE
+        CLEAR_CONF
+        if [ $J_SITE = "hk" ] && [ $J_TYPE = "prod" ]; then
+           unzip -oq tz-jboss-env-*-hkprod-biz-config.zip 
+        elif [ $J_SITE = "hk" ] && [ $J_TYPE = "beta" ]; then
+           unzip -oq tz-jboss-env-*-hkbeta-biz-config.zip 
+        elif [ $J_SITE = "hk" ] && [ $J_TYPE = "alpha" ]; then
+           unzip -oq tz-jboss-env-*-alpha-biz-config.zip
+    elif [ $J_SITE = "sh" ] && [ $J_TYPE = "prod" ]; then
+       unzip -qo tz-jboss-env-*-shprod-biz-config.zip 
+        fi
+#### TA ota-web  ##################
+elif [  $J_SERVICE = "ota-web" ]; then
+    cd $JBOSSHOME/$J_SERVICE
+        CLEAR_CONF
+        if [ $J_SITE = "hk" ] && [ $J_TYPE = "prod" ]; then
+           unzip -oq tz-jboss-env-*-hkprod-web-config.zip 
+        elif [ $J_SITE = "hk" ] && [ $J_TYPE = "beta" ]; then
+           unzip -oq tz-jboss-env-*-hkbeta-web-config.zip 
+        elif [ $J_SITE = "hk" ] && [ $J_TYPE = "alpha" ]; then
+           unzip -oq tz-jboss-env-*-alpha-web-config.zip
+    elif [ $J_SITE = "sh" ] && [ $J_TYPE = "prod" ]; then
+       unzip -qo tz-jboss-env-*-shprod-web-config.zip 
+        fi
+######## tz-task   ##############################
+elif [  $J_SERVICE = "tz-task" ]; then
+    cd $JBOSSHOME/$J_SERVICE
+        CLEAR_CONF
+        if [ $J_SITE = "hk" ] && [ $J_TYPE = "prod" ]; then
+           unzip -oq tz-jboss-env-*-hktask-config.zip
+        elif [ $J_SITE = "sh" ] && [ $J_TYPE = "prod" ]; then
+           unzip -oq tz-jboss-env-*-shtask-config.zip
+        fi
+######## Affiliate  #############################
+elif [  $J_SERVICE = "affiliate" ]; then
+    cd $JBOSSHOME/$J_SERVICE
+        CLEAR_CONF
+        if [ $J_SITE = "hk" ] && [ $J_TYPE = "prod" ]; then
+           unzip -oq tz-jboss-env-*-affhkprod-config.zip 
+        elif [ $J_SITE = "sh" ] && [ $J_TYPE = "prod" ]; then
+           unzip -oq tz-jboss-env-*-affshprod-config.zip 
+        fi
+########## JBOSS-MEMBER ###########################
+elif [  $J_SERVICE = "member" ]; then
+    cd $JBOSSHOME/$J_SERVICE
+        if [ -e deploy/ota-member-webservice*.war ]; then
+          rm -rf deploy/ota-member-webservice*.war
+        fi
+        CLEAR_CONF
+    if [ $J_TYPE = "prod" ]; then
+        unzip -qo member-web-*-binary.zip
+        unzip -qo member-web-*-prod-config.zip 
+    elif [ $J_TYPE = "beta" ]; then
+        unzip -qo member-web-*-binary.zip
+        unzip -qo member-web-*-beta-config.zip 
+    elif [ $J_TYPE = "alpha" ]; then
+        unzip -qo member-web-*-binary.zip
+        unzip -qo member-web-*-alpha-config.zip 
+    fi
+############# PAYMENT #################################
+elif [  $J_SERVICE = "payment" ]; then
+  CLEAR_CONF
+  if [ $J_SITE = "hk" ] && [ $J_TYPE = "prod" ]; then
+        unzip -qo payment-web-*-hkprod.zip 
+  elif [ $J_SITE = "sh" ] && [ $J_TYPE = "prod" ]; then
+        unzip -qo payment-web-*-shprod.zip 
+  elif [ $J_SITE = "hk" ] && [ $J_TYPE = "beta" ]; then
+        unzip -qo payment-web-*-beta.zip 
+  elif [ $J_TYPE = "alpha" ]; then
+    unzip -oq payment-web-xxxx-alpha.zip 
+  fi
+fi
+ }
+

@@ -1,0 +1,54 @@
+####### Location hk ,cn ##########
+LOCATION=tw
+####### SITE sh,tw,hk,bj##########
+SITE=tw
+IDC="TW-Neihu"
+#### Class prod,beta #############
+CLASS=PROD
+##################################
+SERVER=twweb02
+#### IP address ##################
+IPADDR=192.168.50.102
+EXT_IP=203.192.172.228
+### LOG path   ###################
+LOGPATH="/opt/logs"
+##################################
+### Log archive file path ########
+ARCPATH="$LOGPATH/archives"
+#####################################
+SER_TYPE="prod"
+###### MAIL list  #######################
+MAILTO="instant.msg@travelzen.com"
+### jboss service home ###########
+JBOSSHOME="/opt/app/jboss-4.2.3.GA/server"
+##################################
+BACKUP_DIR="/var/APP"
+LIMIT_BACKUP=3
+### Jboss service ################
+JSERVERLIST="ota-biz ota-web admin galileo-connector tz-task payment affiliate event-inventory hotelcrs-ws hotelcrs-web-revamp member member-admin fare-admin"
+OTABIZPATH="ota-biz"
+OTAWEBPATH="ota-web"
+ADMINPATH="admin"
+GALILEOPATH="galileo-connector"
+TASKPATH="tz-tsak"
+PAYMENTPATH="payment"
+AFFILIATEPATH="affiliate"
+EVENTPATH="event-inventory"
+HOTELWSPATH="hotelcrs-ws"
+HOTELREVAMP="hotelcrs-web-revamp"
+#############################
+MONITOR="192.168.3.34"
+##################################
+#PHP config#######################
+PHP_CHECK=Y
+URL=www.travelzen.com tw.travelzen.com
+USE_PHP=Y
+PHP_PATH="/opt/vhost"
+PHP_FILE="/opt/deploy"
+IMG_PATH="images.com/images"
+PHP_LIST="www.com affiliate.com www.travelzen.com.tw twwww.com"
+XML_FILE="tw.www.travelzen.com.xml"
+PHP_KEEP=10
+WEBACKUP="/var/backup/web"
+RESTARTMEM="N"
+STANDALONE="N"
